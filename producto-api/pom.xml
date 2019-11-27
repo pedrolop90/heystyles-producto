@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <start-class>com.heystyles.producto.api.ProductoUsuariosAppApp</start-class>
+        <start-class>com.heystyles.producto.api.ProductoApp</start-class>
     </properties>
 
 
