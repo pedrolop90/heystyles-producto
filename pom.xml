@@ -10,6 +10,7 @@
     <modules>
         <module>producto-core</module>
         <module>producto-api</module>
+        <module>producto-cliente</module>
     </modules>
     <packaging>pom</packaging>
 
