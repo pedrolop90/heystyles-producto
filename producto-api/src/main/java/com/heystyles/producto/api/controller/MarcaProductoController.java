@@ -59,7 +59,7 @@ public class MarcaProductoController {
             @ApiResponse(code = 200, message = "Marca Producto Encontrada."),
             @ApiResponse(code = 404, message = "Marca Producto no encontrada.")
     })
-    @GetMapping(value = "/batch", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/batch/marca-producto", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MarcaProductoListResponse> getMarcaProductosById(
             @NotNull @RequestParam(name = "marcaProductosIds") List<Long> marcaProductosIds) {
         List<MarcaProductoDto> marcaProductosDto = marcaProductoService.getMarcaProductosById(marcaProductosIds);

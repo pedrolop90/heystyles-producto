@@ -46,8 +46,11 @@ public class MarcaProductoClientImpl implements MarcaProductoClient {
     @Override
     public List<MarcaProductoDto> findMarcaProductosById(List<Long> marcaProductoId) {
         UriComponentsBuilder urlBuilder = getUriClase()
-                .pathSegment("/batch")
-                .queryParam("marcaProductosIds", marcaProductoId.toArray());
+                .pathSegment("batch")
+                .pathSegment("marca-producto");
+        if (marcaProductoId != null && !marcaProductoId.isEmpty()) {
+            urlBuilder.queryParam("marcaProductosIds", marcaProductoId.toArray());
+        }
         return client.getForEntity(urlBuilder.toUriString(), MarcaProductoListResponse.class).getBody().getData();
     }
 
