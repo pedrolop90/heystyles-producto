@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UnidadMedidaDao extends JpaRepository<UnidadMedidaEntity, Long> {
+
+    UnidadMedidaEntity findByNombre(String nombre);
+
 }

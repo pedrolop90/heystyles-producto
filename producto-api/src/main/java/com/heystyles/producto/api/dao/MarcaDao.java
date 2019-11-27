@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MarcaDao extends JpaRepository<MarcaEntity, Long> {
+
+    MarcaEntity findByNombre(String nombre);
+
 }

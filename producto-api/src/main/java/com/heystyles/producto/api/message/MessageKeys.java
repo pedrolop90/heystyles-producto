@@ -10,4 +10,10 @@ public interface MessageKeys extends com.heystyles.common.util.MessageKeys {
 
     String LUGAR_NOT_FOUND = "heystyles.producto.lugar.not-found";
 
+    String MARCA_NOMBRE_DUPLICATED = "heystyles.producto.marca-nombre.duplicated";
+
+    String PRODUCTO_NOMBRE_DUPLICATED = "heystyles.producto.producto-nombre.duplicated";
+
+    String UNIDAD_MEDIDA_NOMBRE_DUPLICATED = "heystyles.producto.unidad-medida-nombre.duplicated";
+
 }
