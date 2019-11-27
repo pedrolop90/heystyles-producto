@@ -27,17 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.heystyles</groupId>
-            <artifactId>usuarios-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.heystyles</groupId>
-            <artifactId>seguridad-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.heystyles</groupId>
-            <artifactId>seguridad-cliente</artifactId>
+            <artifactId>producto-core</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
