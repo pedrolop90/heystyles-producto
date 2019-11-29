@@ -44,7 +44,7 @@ public class ProductoEntity extends AuditableWithAuthorEntity<Long> implements S
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "stock_minimo", nullable = false)
+    @Column(name = "stock_minimo")
     private Long stockMinimo;
 
     @Column(name = "s_delete", nullable = false)

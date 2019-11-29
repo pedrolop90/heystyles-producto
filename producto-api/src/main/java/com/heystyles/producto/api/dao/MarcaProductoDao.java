@@ -11,4 +11,6 @@ public interface MarcaProductoDao
         extends JpaRepository<MarcaProductoEntity, Long>, MarcaProductoCustomDao {
 
     List<MarcaProductoEntity> findByProductoId(Long productoId);
+
+    List<MarcaProductoEntity> findByMarcaId(Long marcaId);
 }

@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ import java.util.List;
 @RestController
 @Api(value = "Producto Controller",
         description = "Controller para el manejo de los Productos")
+@Validated
 public class ProductoController {
 
     @Autowired
@@ -90,7 +92,7 @@ public class ProductoController {
             @ApiResponse(code = 404, message = "Productos no encontrados.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductoExtendedListResponse> getProductos() {
+    public ResponseEntity<ProductoExtendedListResponse> findProductoById() {
         List<ProductoExtended> productos = productoService.findAllProductoExtended();
         return Responses.responseEntity(new ProductoExtendedListResponse(productos));
     }
@@ -101,7 +103,7 @@ public class ProductoController {
             @ApiResponse(code = 404, message = "Marcas no encontradas.")
     })
     @GetMapping(value = "/{productoId}/marcas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MarcaListResponse> getProductos(
+    public ResponseEntity<MarcaListResponse> findAll(
             @NotNull @PathVariable(name = "productoId") Long productoId) {
         List<Marca> marcas = productoService.findMarcaByProductoId(productoId);
         return Responses.responseEntity(new MarcaListResponse(marcas));

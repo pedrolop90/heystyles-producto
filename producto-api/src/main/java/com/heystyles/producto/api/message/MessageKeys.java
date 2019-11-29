@@ -16,4 +16,6 @@ public interface MessageKeys extends com.heystyles.common.util.MessageKeys {
 
     String UNIDAD_MEDIDA_NOMBRE_DUPLICATED = "heystyles.producto.unidad-medida-nombre.duplicated";
 
+    String MARCA_PRODUCTO_REFERENCIADOS = "heystyles.prodcuto.marca-producto.referenciado";
+
 }
