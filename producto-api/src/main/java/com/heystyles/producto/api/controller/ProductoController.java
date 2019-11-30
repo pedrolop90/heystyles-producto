@@ -63,6 +63,18 @@ public class ProductoController {
         return Responses.successEntity("Actualizacion correcta");
     }
 
+    @ApiOperation(value = "Permite activar un Producto en la base de datos")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Producto Activado."),
+            @ApiResponse(code = 404, message = "Producto no encontrado.")
+    })
+    @PutMapping(value = "/{productoId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> activarProducto(@NotNull @PathVariable Long productoId) {
+        productoService.activarProdcuto(productoId);
+        return Responses.successEntity("Activacion correcta");
+    }
+
     @ApiOperation(value = "Permite Eliminar un Producto de la base de datos")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Producto Eliminado."),

@@ -58,6 +58,13 @@ public class ProductoServiceImpl
     }
 
     @Override
+    public void activarProdcuto(Long productoId) {
+        Producto producto = getProducto(productoId);
+        producto.setEstado(Estado.ACTIVO);
+        super.update(producto);
+    }
+
+    @Override
     public void delete(Long productoId) {
         Producto producto = getProducto(productoId);
         producto.setEstado(Estado.INACTIVO);
