@@ -83,7 +83,7 @@ public class ProductoController {
     @GetMapping(value = "/{productoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductoExtendedResponse> getProductoExtended(
             @NotNull @PathVariable(name = "productoId") Long productoId) {
-        return Responses.responseEntity(new ProductoExtendedResponse(productoService.getProducto(productoId)));
+        return Responses.responseEntity(new ProductoExtendedResponse(productoService.getProductoExtended(productoId)));
     }
 
     @ApiOperation(value = "Permite Listar todos los Productos de la base de datos")

@@ -14,7 +14,9 @@ public interface ProductoService extends Service<Producto, Long> {
 
     void update(ProductoRequest request);
 
-    ProductoExtended getProducto(Long productoId);
+    Producto getProducto(Long productoId);
+
+    ProductoExtended getProductoExtended(Long productoId);
 
     List<ProductoExtended> findAllProductoExtended();
 

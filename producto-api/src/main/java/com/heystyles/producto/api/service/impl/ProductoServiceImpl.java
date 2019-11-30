@@ -7,6 +7,7 @@ import com.heystyles.producto.api.entity.ProductoEntity;
 import com.heystyles.producto.api.message.MessageKeys;
 import com.heystyles.producto.api.service.MarcaProductoService;
 import com.heystyles.producto.api.service.ProductoService;
+import com.heystyles.producto.core.domain.Estado;
 import com.heystyles.producto.core.domain.Marca;
 import com.heystyles.producto.core.domain.Producto;
 import com.heystyles.producto.core.domain.ProductoExtended;
@@ -57,7 +58,26 @@ public class ProductoServiceImpl
     }
 
     @Override
-    public ProductoExtended getProducto(Long productoId) {
+    public void delete(Long productoId) {
+        Producto producto = getProducto(productoId);
+        producto.setEstado(Estado.INACTIVO);
+        super.update(producto);
+    }
+
+    @Override
+    public Producto getProducto(Long productoId) {
+        return Optional.ofNullable(findById(productoId))
+                .orElseThrow(() -> APIExceptions.objetoNoEncontrado(
+                        messageSource.getMessage(
+                                MessageKeys.PRODUCTO_NOT_FOUND,
+                                new String[]{String.valueOf(productoId)},
+                                getLocale()
+                        )
+                ));
+    }
+
+    @Override
+    public ProductoExtended getProductoExtended(Long productoId) {
         ProductoEntity productoEntity = Optional.ofNullable(productoDao.findOne(productoId))
                 .orElseThrow(() -> APIExceptions.objetoNoEncontrado(
                         messageSource.getMessage(
