@@ -15,6 +15,7 @@ public class ProductoEntityToProductoConverter implements Converter<ProductoEnti
         bean.setNombre(entity.getNombre());
         bean.setStockMinimo(entity.getStockMinimo());
         bean.setUnidadMedidaId(entity.getUnidadMedida().getId());
+        bean.setEstado(entity.getEstado());
         return bean;
     }
 }

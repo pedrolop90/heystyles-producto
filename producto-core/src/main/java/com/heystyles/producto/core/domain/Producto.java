@@ -19,6 +19,9 @@ public class Producto extends DomainBean<Long> {
 
     private Long stockMinimo;
 
+    @NotNull
+    private Estado estado;
+
     @Override
     public Long getId() {
         return id;
@@ -51,5 +54,13 @@ public class Producto extends DomainBean<Long> {
 
     public void setStockMinimo(Long stockMinimo) {
         this.stockMinimo = stockMinimo;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

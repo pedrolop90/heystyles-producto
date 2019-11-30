@@ -20,6 +20,7 @@ public class ProductoEntityToProductoExtendedConverter implements Converter<Prod
         bean.setId(entity.getId());
         bean.setNombre(entity.getNombre());
         bean.setStockMinimo(entity.getStockMinimo());
+        bean.setEstado(entity.getEstado());
         bean.setUnidadMedida(converterService.convertTo(entity.getUnidadMedida(), UnidadMedida.class));
         return bean;
     }

@@ -57,6 +57,7 @@ public class ProductoToProductoEntityConverter implements Converter<Producto, Pr
                                 )
                         ));
         entity.setUnidadMedida(unidadMedidaEntity);
+        entity.setEstado(bean.getEstado());
         return entity;
     }
 }

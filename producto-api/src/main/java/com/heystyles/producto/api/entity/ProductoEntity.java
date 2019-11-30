@@ -3,6 +3,7 @@ package com.heystyles.producto.api.entity;
 import com.heystyles.common.persistence.LocalDateTimeAttributeConverter;
 import com.heystyles.common.types.AuditableWithAuthorEntity;
 import com.heystyles.common.types.SoftDeletable;
+import com.heystyles.producto.core.domain.Estado;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +15,8 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,6 +49,10 @@ public class ProductoEntity extends AuditableWithAuthorEntity<Long> implements S
 
     @Column(name = "stock_minimo")
     private Long stockMinimo;
+
+    @Column(name = "estado", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Estado estado;
 
     @Column(name = "s_delete", nullable = false)
     private boolean delete;
@@ -155,6 +162,14 @@ public class ProductoEntity extends AuditableWithAuthorEntity<Long> implements S
     @Override
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
