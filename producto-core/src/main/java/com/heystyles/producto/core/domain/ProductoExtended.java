@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductoExtended extends DomainBean<Long> {
@@ -23,6 +24,8 @@ public class ProductoExtended extends DomainBean<Long> {
 
     @NotNull
     private Estado estado;
+
+    private List<Marca> marcas;
 
     @Override
     public Long getId() {
@@ -64,5 +67,13 @@ public class ProductoExtended extends DomainBean<Long> {
 
     public void setStockMinimo(Long stockMinimo) {
         this.stockMinimo = stockMinimo;
+    }
+
+    public List<Marca> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(List<Marca> marcas) {
+        this.marcas = marcas;
     }
 }
