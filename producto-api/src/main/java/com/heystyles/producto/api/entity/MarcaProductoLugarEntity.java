@@ -14,19 +14,30 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "lugar")
+@Table(name = "marca_producto_lugar")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "s_delete = 0")
-public class LugarEntity extends AuditableWithAuthorEntity<Long> implements SoftDeletable {
+public class MarcaProductoLugarEntity extends AuditableWithAuthorEntity<Long> implements SoftDeletable {
 
     public interface Attributes extends AuditableWithAuthorEntity.Attributes {
+        String LUGAR = "lugar";
+        String LUGAR_ID = LUGAR + "." + LugarEntity.Attributes.ID;
+        String MARCA_PRODUCTO = "marcaProducto";
+        String MARCA_PRODUCTO_ID = MARCA_PRODUCTO + "." + MarcaProductoEntity.Attributes.ID;
+        String MARCA_PRODUCTO_MARCA = MARCA_PRODUCTO + "." + MarcaProductoEntity.Attributes.MARCA;
+        String MARCA_PRODUCTO_MARCA_ID = MARCA_PRODUCTO + "." + MarcaProductoEntity.Attributes.MARCA_ID;
+        String MARCA_PRODUCTO_PRODUCTO = MARCA_PRODUCTO + "." + MarcaProductoEntity.Attributes.PRODUCTO;
+        String MARCA_PRODUCTO_PRODUCTO_ID = MARCA_PRODUCTO + "." + MarcaProductoEntity.Attributes.PRODUCTO_ID;
     }
 
     @Id
@@ -34,11 +45,13 @@ public class LugarEntity extends AuditableWithAuthorEntity<Long> implements Soft
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_marca_producto", nullable = false)
+    private MarcaProductoEntity marcaProducto;
 
-    @Column(name = "posicion", nullable = false)
-    private Long posicion;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_lugar", nullable = false)
+    private LugarEntity lugar;
 
     @Column(name = "s_delete", nullable = false)
     private boolean delete;
@@ -61,14 +74,6 @@ public class LugarEntity extends AuditableWithAuthorEntity<Long> implements Soft
     @Column(name = "updated_by")
     private String updatedBy;
 
-    public LugarEntity() {
-
-    }
-
-    public LugarEntity(Long id) {
-        setId(id);
-    }
-
     @Override
     public Long getId() {
         return id;
@@ -79,20 +84,20 @@ public class LugarEntity extends AuditableWithAuthorEntity<Long> implements Soft
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public LugarEntity getLugar() {
+        return lugar;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setLugar(LugarEntity lugar) {
+        this.lugar = lugar;
     }
 
-    public Long getPosicion() {
-        return posicion;
+    public MarcaProductoEntity getMarcaProducto() {
+        return marcaProducto;
     }
 
-    public void setPosicion(Long posicion) {
-        this.posicion = posicion;
+    public void setMarcaProducto(MarcaProductoEntity marcaProducto) {
+        this.marcaProducto = marcaProducto;
     }
 
     public boolean isDelete() {

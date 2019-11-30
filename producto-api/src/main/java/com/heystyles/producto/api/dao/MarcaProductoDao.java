@@ -13,4 +13,6 @@ public interface MarcaProductoDao
     List<MarcaProductoEntity> findByProductoId(Long productoId);
 
     List<MarcaProductoEntity> findByMarcaId(Long marcaId);
+
+    MarcaProductoEntity findByProductoIdAndMarcaId(Long productoId, Long marcaId);
 }

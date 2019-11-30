@@ -33,6 +33,7 @@ public class MarcaProductoEntity extends AuditableWithAuthorEntity<Long> impleme
         String PRODUCTO = "producto";
         String PRODUCTO_ID = PRODUCTO + "." + ProductoEntity.Attributes.ID;
         String MARCA = "marca";
+        String MARCA_ID = MARCA + "." + MarcaEntity.Attributes.ID;
     }
 
     @Id
