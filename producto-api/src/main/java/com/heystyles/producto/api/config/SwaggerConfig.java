@@ -38,6 +38,13 @@ public class SwaggerConfig {
                 .defaultValue("es")
                 .required(false)
                 .build());
+        parameters.add(new ParameterBuilder()
+                .name("usuario")
+                .description("Usuario activo en la session")
+                .modelRef(new ModelRef("string"))
+                .parameterType("header")
+                .required(false)
+                .build());
         return parameters;
     }
 
