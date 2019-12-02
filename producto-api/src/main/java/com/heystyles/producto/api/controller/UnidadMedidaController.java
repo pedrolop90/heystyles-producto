@@ -92,4 +92,15 @@ public class UnidadMedidaController {
         return Responses.responseEntity(new UnidadMedidaListResponse(unidadesMedidas));
     }
 
+    @ApiOperation(value = "Permite Activar una Unidad de Medida en la base de datos")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Unidad de Medida Activada."),
+            @ApiResponse(code = 404, message = "Unidad de Medida no encontrada.")
+    })
+    @PutMapping(value = "{unidadMedidaId}/activar",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> update(@NotNull @PathVariable Long unidadMedidaId) {
+        unidadMedidaService.activarUnidadMedida(unidadMedidaId);
+        return Responses.successEntity("Activación correcta");
+    }
 }

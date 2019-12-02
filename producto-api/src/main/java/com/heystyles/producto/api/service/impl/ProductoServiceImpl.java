@@ -2,12 +2,12 @@ package com.heystyles.producto.api.service.impl;
 
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
+import com.heystyles.common.types.Estado;
 import com.heystyles.producto.api.dao.ProductoDao;
 import com.heystyles.producto.api.entity.ProductoEntity;
 import com.heystyles.producto.api.message.MessageKeys;
 import com.heystyles.producto.api.service.MarcaProductoService;
 import com.heystyles.producto.api.service.ProductoService;
-import com.heystyles.producto.core.domain.Estado;
 import com.heystyles.producto.core.domain.Marca;
 import com.heystyles.producto.core.domain.Producto;
 import com.heystyles.producto.core.domain.ProductoExtended;

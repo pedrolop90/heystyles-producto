@@ -14,6 +14,7 @@ public class MarcaEntityToMarcaConverter implements Converter<MarcaEntity, Marca
         bean.setId(entity.getId());
         bean.setNombre(entity.getNombre());
         bean.setDescripcion(entity.getDescripcion());
+        bean.setEstado(entity.getEstado());
         return bean;
     }
 }

@@ -2,6 +2,7 @@ package com.heystyles.producto.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.heystyles.common.types.DomainBean;
+import com.heystyles.common.types.Estado;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;

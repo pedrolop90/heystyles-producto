@@ -92,4 +92,15 @@ public class MarcaController {
         return Responses.responseEntity(new MarcaListResponse(marcas));
     }
 
+    @ApiOperation(value = "Permite Activar una Marca en la base de datos")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Marca Activada."),
+            @ApiResponse(code = 404, message = "Marca no encontrada.")
+    })
+    @PutMapping(value = "{marcaId}/activar",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> update(@NotNull @PathVariable Long marcaId) {
+        marcaService.activarMarca(marcaId);
+        return Responses.successEntity("Actualizacion correcta");
+    }
 }

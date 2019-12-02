@@ -42,6 +42,7 @@ public class UnidadMedidaToUnidadMedidaEntityConverter implements Converter<Unid
         }
         entity.setNombre(bean.getNombre());
         entity.setAbreviatura(bean.getAbreviatura());
+        entity.setEstado(bean.getEstado());
         return entity;
     }
 }

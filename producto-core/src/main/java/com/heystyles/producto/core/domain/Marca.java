@@ -2,6 +2,7 @@ package com.heystyles.producto.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.heystyles.common.types.DomainBean;
+import com.heystyles.common.types.Estado;
 import org.hibernate.validator.constraints.NotBlank;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,6 +14,8 @@ public class Marca extends DomainBean<Long> {
     private String nombre;
 
     private String descripcion;
+
+    private Estado estado;
 
     @Override
     public Long getId() {
@@ -38,5 +41,13 @@ public class Marca extends DomainBean<Long> {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

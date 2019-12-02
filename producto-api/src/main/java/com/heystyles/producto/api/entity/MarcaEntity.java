@@ -2,6 +2,7 @@ package com.heystyles.producto.api.entity;
 
 import com.heystyles.common.persistence.LocalDateTimeAttributeConverter;
 import com.heystyles.common.types.AuditableWithAuthorEntity;
+import com.heystyles.common.types.Estado;
 import com.heystyles.common.types.SoftDeletable;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
@@ -14,6 +15,8 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +42,10 @@ public class MarcaEntity extends AuditableWithAuthorEntity<Long> implements Soft
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
+    @Column(name = "estado")
+    @Enumerated(value = EnumType.STRING)
+    private Estado estado;
 
     @Column(name = "s_delete", nullable = false)
     private boolean delete;
@@ -143,6 +150,13 @@ public class MarcaEntity extends AuditableWithAuthorEntity<Long> implements Soft
         this.updatedBy = updatedBy;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     @Override
     public void markAsDeleted() {

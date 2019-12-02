@@ -2,6 +2,7 @@ package com.heystyles.producto.api.service.impl;
 
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
+import com.heystyles.common.types.Estado;
 import com.heystyles.producto.api.dao.MarcaDao;
 import com.heystyles.producto.api.entity.MarcaEntity;
 import com.heystyles.producto.api.message.MessageKeys;
@@ -17,7 +18,8 @@ import java.util.Optional;
 import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
 @Service
-public class MarcaServiceImpl extends ServiceImpl<Marca, MarcaEntity, Long> implements MarcaService {
+public class MarcaServiceImpl
+        extends ServiceImpl<Marca, MarcaEntity, Long> implements MarcaService {
 
     @Autowired
     private MarcaDao marcaDao;
@@ -31,6 +33,13 @@ public class MarcaServiceImpl extends ServiceImpl<Marca, MarcaEntity, Long> impl
     }
 
     @Override
+    public void delete(Long marcaId) {
+        Marca marca = getMarca(marcaId);
+        marca.setEstado(Estado.INACTIVO);
+        update(marca);
+    }
+
+    @Override
     public Marca getMarca(Long marcaId) {
         return Optional.ofNullable(findById(marcaId)).orElseThrow(() ->
                 APIExceptions.objetoNoEncontrado(
@@ -38,5 +47,12 @@ public class MarcaServiceImpl extends ServiceImpl<Marca, MarcaEntity, Long> impl
                                 new String[]{String.valueOf(marcaId)},
                                 getLocale())
                 ));
+    }
+
+    @Override
+    public void activarMarca(Long marcaId) {
+        Marca marca = getMarca(marcaId);
+        marca.setEstado(Estado.ACTIVO);
+        update(marca);
     }
 }

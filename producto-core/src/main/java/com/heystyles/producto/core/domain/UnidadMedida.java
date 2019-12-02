@@ -2,6 +2,7 @@ package com.heystyles.producto.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.heystyles.common.types.DomainBean;
+import com.heystyles.common.types.Estado;
 import org.hibernate.validator.constraints.NotBlank;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,6 +15,8 @@ public class UnidadMedida extends DomainBean<Long> {
 
     @NotBlank
     private String abreviatura;
+
+    private Estado estado;
 
     @Override
     public Long getId() {
@@ -39,5 +42,13 @@ public class UnidadMedida extends DomainBean<Long> {
 
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

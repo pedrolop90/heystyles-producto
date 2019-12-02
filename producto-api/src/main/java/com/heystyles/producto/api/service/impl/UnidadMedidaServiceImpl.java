@@ -2,6 +2,7 @@ package com.heystyles.producto.api.service.impl;
 
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
+import com.heystyles.common.types.Estado;
 import com.heystyles.producto.api.dao.UnidadMedidaDao;
 import com.heystyles.producto.api.entity.UnidadMedidaEntity;
 import com.heystyles.producto.api.message.MessageKeys;
@@ -32,6 +33,13 @@ public class UnidadMedidaServiceImpl
     }
 
     @Override
+    public void delete(Long unidadMedidaId) {
+        UnidadMedida unidadMedida = getUnidadMedida(unidadMedidaId);
+        unidadMedida.setEstado(Estado.INACTIVO);
+        update(unidadMedida);
+    }
+
+    @Override
     public UnidadMedida getUnidadMedida(Long unidadMedidaId) {
         return Optional.ofNullable(findById(unidadMedidaId))
                 .orElseThrow(() -> APIExceptions.objetoNoEncontrado(
@@ -39,5 +47,12 @@ public class UnidadMedidaServiceImpl
                                 new String[]{String.valueOf(unidadMedidaId)},
                                 getLocale())
                 ));
+    }
+
+    @Override
+    public void activarUnidadMedida(Long unidadMedidaId) {
+        UnidadMedida unidadMedida = getUnidadMedida(unidadMedidaId);
+        unidadMedida.setEstado(Estado.ACTIVO);
+        update(unidadMedida);
     }
 }

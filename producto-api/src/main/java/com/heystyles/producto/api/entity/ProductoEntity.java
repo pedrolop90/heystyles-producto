@@ -2,8 +2,8 @@ package com.heystyles.producto.api.entity;
 
 import com.heystyles.common.persistence.LocalDateTimeAttributeConverter;
 import com.heystyles.common.types.AuditableWithAuthorEntity;
+import com.heystyles.common.types.Estado;
 import com.heystyles.common.types.SoftDeletable;
-import com.heystyles.producto.core.domain.Estado;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
