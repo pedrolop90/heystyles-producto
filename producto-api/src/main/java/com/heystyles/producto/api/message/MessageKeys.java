@@ -18,4 +18,6 @@ public interface MessageKeys extends com.heystyles.common.util.MessageKeys {
 
     String MARCA_PRODUCTO_REFERENCIADOS = "heystyles.prodcuto.marca-producto.referenciado";
 
+    String UNIDAD_MEDIDA_DELETE_PRODUCTOS_REFERENCIADOS = "heystyles.producto.unidad-medida.producto-referenciados";
+
 }
