@@ -5,6 +5,7 @@ import com.heystyles.common.types.DomainBean;
 import com.heystyles.common.types.Estado;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,7 +19,8 @@ public class Producto extends DomainBean<Long> {
     @NotBlank
     private String nombre;
 
-    private Long stockMinimo;
+    @Min(value = 0)
+    private long stockMinimo;
 
     @NotNull
     private Estado estado;
