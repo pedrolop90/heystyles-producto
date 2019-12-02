@@ -7,6 +7,7 @@ import com.heystyles.producto.api.service.LugarService;
 import com.heystyles.producto.core.domain.Lugar;
 import com.heystyles.producto.core.dto.LugarListResponse;
 import com.heystyles.producto.core.dto.LugarResponse;
+import com.heystyles.producto.core.filter.LugarFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RequestMapping(value = "/lugar")
 @RestController
@@ -81,15 +81,25 @@ public class LugarController {
         return Responses.responseEntity(new LugarResponse(lugarService.getLugar(lugarId)));
     }
 
-    @ApiOperation(value = "Permite Listar todos los Lugares de la base de datos")
+    @ApiOperation(value = "Permite Listar todos los Lugares de la base de datos, dado un filtro.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Lugares Encontrados."),
             @ApiResponse(code = 404, message = "Lugares no encontrados.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LugarListResponse> getLugares() {
-        List<Lugar> lugares = lugarService.findAll();
-        return Responses.responseEntity(new LugarListResponse(lugares));
+    public ResponseEntity<LugarListResponse> getLugares(LugarFilter filter) {
+        return Responses.responseEntity(lugarService.filter(filter));
     }
 
+    @ApiOperation(value = "Permite Activar un Lugar en la base de datos")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Lugar Activado."),
+            @ApiResponse(code = 404, message = "Lugar no encontrado.")
+    })
+    @PutMapping(value = "{lugarId}/activar",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> update(@NotNull @PathVariable Long lugarId) {
+        lugarService.activarLugar(lugarId);
+        return Responses.successEntity("Activacion correcta");
+    }
 }

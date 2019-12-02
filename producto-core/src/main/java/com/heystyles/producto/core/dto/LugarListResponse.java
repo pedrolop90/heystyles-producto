@@ -13,4 +13,8 @@ public class LugarListResponse extends ListResponse<Lugar> {
     public LugarListResponse(List<Lugar> lugares) {
         super(lugares);
     }
+
+    public LugarListResponse(Long count, List<Lugar> lugares) {
+        super(lugares, count);
+    }
 }

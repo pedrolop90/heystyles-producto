@@ -7,6 +7,7 @@ import com.heystyles.producto.api.service.UnidadMedidaService;
 import com.heystyles.producto.core.domain.UnidadMedida;
 import com.heystyles.producto.core.dto.UnidadMedidaListResponse;
 import com.heystyles.producto.core.dto.UnidadMedidaResponse;
+import com.heystyles.producto.core.filter.UnidadMedidaFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RequestMapping(value = "/unidad-medida")
 @RestController
@@ -81,15 +81,14 @@ public class UnidadMedidaController {
         return Responses.responseEntity(new UnidadMedidaResponse(unidadMedidaService.getUnidadMedida(unidadMedidaId)));
     }
 
-    @ApiOperation(value = "Permite Listar todas las Unidad de Medida de la base de datos")
+    @ApiOperation(value = "Permite Listar todas las Unidad de Medida de la base de datos, dado un filtro")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Unidad de Medida Encontradas."),
             @ApiResponse(code = 404, message = "Unidad de Medida no encontradas.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UnidadMedidaListResponse> getUnidadesMedida() {
-        List<UnidadMedida> unidadesMedidas = unidadMedidaService.findAll();
-        return Responses.responseEntity(new UnidadMedidaListResponse(unidadesMedidas));
+    public ResponseEntity<UnidadMedidaListResponse> getUnidadesMedida(UnidadMedidaFilter filter) {
+        return Responses.responseEntity(unidadMedidaService.filter(filter));
     }
 
     @ApiOperation(value = "Permite Activar una Unidad de Medida en la base de datos")

@@ -13,4 +13,8 @@ public class ProductoExtendedListResponse extends ListResponse<ProductoExtended>
     public ProductoExtendedListResponse(List<ProductoExtended> productoExtendedList) {
         super(productoExtendedList);
     }
+
+    public ProductoExtendedListResponse(Long count, List<ProductoExtended> productoExtendedList) {
+        super(productoExtendedList, count);
+    }
 }

@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UnidadMedidaDao extends JpaRepository<UnidadMedidaEntity, Long> {
+public interface UnidadMedidaDao
+        extends JpaRepository<UnidadMedidaEntity, Long>, UnidadMedidaCustomDao {
 
     UnidadMedidaEntity findByNombre(String nombre);
 

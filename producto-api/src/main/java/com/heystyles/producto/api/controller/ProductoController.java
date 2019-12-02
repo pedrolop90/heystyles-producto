@@ -5,11 +5,11 @@ import com.heystyles.common.types.BaseResponse;
 import com.heystyles.common.types.IdResponse;
 import com.heystyles.producto.api.service.ProductoService;
 import com.heystyles.producto.core.domain.Marca;
-import com.heystyles.producto.core.domain.ProductoExtended;
 import com.heystyles.producto.core.dto.MarcaListResponse;
 import com.heystyles.producto.core.dto.ProductoExtendedListResponse;
 import com.heystyles.producto.core.dto.ProductoExtendedResponse;
 import com.heystyles.producto.core.dto.ProductoRequest;
+import com.heystyles.producto.core.filter.ProductoFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -71,7 +71,7 @@ public class ProductoController {
     @PutMapping(value = "/{productoId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> activarProducto(@NotNull @PathVariable Long productoId) {
-        productoService.activarProdcuto(productoId);
+        productoService.activarProducto(productoId);
         return Responses.successEntity("Activacion correcta");
     }
 
@@ -98,18 +98,17 @@ public class ProductoController {
         return Responses.responseEntity(new ProductoExtendedResponse(productoService.getProductoExtended(productoId)));
     }
 
-    @ApiOperation(value = "Permite Listar todos los Productos de la base de datos")
+    @ApiOperation(value = "Permite Listar todos los Productos de la base de datos, dado un filtro")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Productos Encontrados."),
             @ApiResponse(code = 404, message = "Productos no encontrados.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductoExtendedListResponse> findProductoById() {
-        List<ProductoExtended> productos = productoService.findAllProductoExtended();
-        return Responses.responseEntity(new ProductoExtendedListResponse(productos));
+    public ResponseEntity<ProductoExtendedListResponse> findProductoById(ProductoFilter filter) {
+        return Responses.responseEntity(productoService.filter(filter));
     }
 
-    @ApiOperation(value = "Permite Listar todas las de un producto, dado el id de un producto.")
+    @ApiOperation(value = "Permite Listar todas las marcas de un producto, dado el id de un producto.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Marcas Encontradas."),
             @ApiResponse(code = 404, message = "Marcas no encontradas.")

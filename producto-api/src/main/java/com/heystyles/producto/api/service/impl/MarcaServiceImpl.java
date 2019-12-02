@@ -3,11 +3,14 @@ package com.heystyles.producto.api.service.impl;
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
 import com.heystyles.common.types.Estado;
+import com.heystyles.common.types.Page;
 import com.heystyles.producto.api.dao.MarcaDao;
 import com.heystyles.producto.api.entity.MarcaEntity;
 import com.heystyles.producto.api.message.MessageKeys;
 import com.heystyles.producto.api.service.MarcaService;
 import com.heystyles.producto.core.domain.Marca;
+import com.heystyles.producto.core.dto.MarcaListResponse;
+import com.heystyles.producto.core.filter.MarcaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.repository.CrudRepository;
@@ -47,6 +50,16 @@ public class MarcaServiceImpl
                                 new String[]{String.valueOf(marcaId)},
                                 getLocale())
                 ));
+    }
+
+    @Override
+    public MarcaListResponse filter(MarcaFilter filter) {
+        filter = Optional.ofNullable(filter).orElse(new MarcaFilter());
+        Page<MarcaEntity> page = marcaDao.getPage(filter);
+        return new MarcaListResponse(
+                page.getTotalElements(),
+                getConverterService().convertTo(page.getContent(), Marca.class)
+        );
     }
 
     @Override

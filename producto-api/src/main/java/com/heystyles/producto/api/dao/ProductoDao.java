@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductoDao extends JpaRepository<ProductoEntity, Long> {
+public interface ProductoDao
+        extends JpaRepository<ProductoEntity, Long>, ProductoCustomDao {
 
     ProductoEntity findByNombre(String nombre);
 

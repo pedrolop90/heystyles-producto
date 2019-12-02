@@ -13,4 +13,8 @@ public class UnidadMedidaListResponse extends ListResponse<UnidadMedida> {
     public UnidadMedidaListResponse(List<UnidadMedida> unidadMedidaList) {
         super(unidadMedidaList);
     }
+
+    public UnidadMedidaListResponse(Long count, List<UnidadMedida> unidadMedidaList) {
+        super(unidadMedidaList, count);
+    }
 }

@@ -2,6 +2,7 @@ package com.heystyles.producto.api.entity;
 
 import com.heystyles.common.persistence.LocalDateTimeAttributeConverter;
 import com.heystyles.common.types.AuditableWithAuthorEntity;
+import com.heystyles.common.types.Estado;
 import com.heystyles.common.types.SoftDeletable;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
@@ -14,6 +15,8 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +30,9 @@ import java.time.LocalDateTime;
 public class LugarEntity extends AuditableWithAuthorEntity<Long> implements SoftDeletable {
 
     public interface Attributes extends AuditableWithAuthorEntity.Attributes {
+        String ESTADO = "estado";
+        String NOMBRE = "nombre";
+        String POSICION = "posicion";
     }
 
     @Id
@@ -39,6 +45,10 @@ public class LugarEntity extends AuditableWithAuthorEntity<Long> implements Soft
 
     @Column(name = "posicion", nullable = false)
     private Long posicion;
+
+    @Column(name = "estado")
+    @Enumerated(value = EnumType.STRING)
+    private Estado estado;
 
     @Column(name = "s_delete", nullable = false)
     private boolean delete;
@@ -141,6 +151,14 @@ public class LugarEntity extends AuditableWithAuthorEntity<Long> implements Soft
     @Override
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override

@@ -13,4 +13,8 @@ public class MarcaListResponse extends ListResponse<Marca> {
     public MarcaListResponse(List<Marca> marcas) {
         super(marcas);
     }
+
+    public MarcaListResponse(Long count, List<Marca> marcas) {
+        super(marcas, count);
+    }
 }

@@ -30,6 +30,8 @@ import java.time.LocalDateTime;
 public class UnidadMedidaEntity extends AuditableWithAuthorEntity<Long> implements SoftDeletable {
 
     public interface Attributes extends AuditableWithAuthorEntity.Attributes {
+        String NOMBRE = "nombre";
+        String ESTADO = "estado";
     }
 
     @Id

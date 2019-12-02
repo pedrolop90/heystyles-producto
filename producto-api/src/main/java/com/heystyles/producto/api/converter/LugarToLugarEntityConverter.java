@@ -42,6 +42,7 @@ public class LugarToLugarEntityConverter implements Converter<Lugar, LugarEntity
         }
         entity.setNombre(bean.getNombre());
         entity.setPosicion(bean.getPosicion());
+        entity.setEstado(bean.getEstado());
         return entity;
     }
 }

@@ -30,6 +30,8 @@ import java.time.LocalDateTime;
 public class MarcaEntity extends AuditableWithAuthorEntity<Long> implements SoftDeletable {
 
     public interface Attributes extends AuditableWithAuthorEntity.Attributes {
+        String ESTADO = "estado";
+        String NOMBRE = "nombre";
     }
 
     @Id

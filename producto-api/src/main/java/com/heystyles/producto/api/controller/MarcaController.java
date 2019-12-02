@@ -7,6 +7,7 @@ import com.heystyles.producto.api.service.MarcaService;
 import com.heystyles.producto.core.domain.Marca;
 import com.heystyles.producto.core.dto.MarcaListResponse;
 import com.heystyles.producto.core.dto.MarcaResponse;
+import com.heystyles.producto.core.filter.MarcaFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RequestMapping(value = "/marca")
 @RestController
@@ -81,15 +81,14 @@ public class MarcaController {
         return Responses.responseEntity(new MarcaResponse(marcaService.getMarca(marcaId)));
     }
 
-    @ApiOperation(value = "Permite Listar todas las Marcas de la base de datos")
+    @ApiOperation(value = "Permite Listar todas las Marcas de la base de datos, dado un filtro.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Marcas Encontradas."),
             @ApiResponse(code = 404, message = "Marcas no encontradas.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MarcaListResponse> getMarcas() {
-        List<Marca> marcas = marcaService.findAll();
-        return Responses.responseEntity(new MarcaListResponse(marcas));
+    public ResponseEntity<MarcaListResponse> getMarcas(MarcaFilter filter) {
+        return Responses.responseEntity(marcaService.filter(filter));
     }
 
     @ApiOperation(value = "Permite Activar una Marca en la base de datos")

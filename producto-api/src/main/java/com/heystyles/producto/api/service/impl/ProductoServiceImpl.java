@@ -3,6 +3,7 @@ package com.heystyles.producto.api.service.impl;
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
 import com.heystyles.common.types.Estado;
+import com.heystyles.common.types.Page;
 import com.heystyles.producto.api.dao.ProductoDao;
 import com.heystyles.producto.api.entity.ProductoEntity;
 import com.heystyles.producto.api.message.MessageKeys;
@@ -11,7 +12,9 @@ import com.heystyles.producto.api.service.ProductoService;
 import com.heystyles.producto.core.domain.Marca;
 import com.heystyles.producto.core.domain.Producto;
 import com.heystyles.producto.core.domain.ProductoExtended;
+import com.heystyles.producto.core.dto.ProductoExtendedListResponse;
 import com.heystyles.producto.core.dto.ProductoRequest;
+import com.heystyles.producto.core.filter.ProductoFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.repository.CrudRepository;
@@ -58,7 +61,7 @@ public class ProductoServiceImpl
     }
 
     @Override
-    public void activarProdcuto(Long productoId) {
+    public void activarProducto(Long productoId) {
         Producto producto = getProducto(productoId);
         producto.setEstado(Estado.ACTIVO);
         super.update(producto);
@@ -97,8 +100,13 @@ public class ProductoServiceImpl
     }
 
     @Override
-    public List<ProductoExtended> findAllProductoExtended() {
-        return getConverterService().convertTo(productoDao.findAll(), ProductoExtended.class);
+    public ProductoExtendedListResponse filter(ProductoFilter filter) {
+        filter = Optional.ofNullable(filter).orElse(new ProductoFilter());
+        Page<ProductoEntity> page = productoDao.getPage(filter);
+        return new ProductoExtendedListResponse(
+                page.getTotalElements(),
+                getConverterService().convertTo(page.getContent(), ProductoExtended.class)
+        );
     }
 
     @Override

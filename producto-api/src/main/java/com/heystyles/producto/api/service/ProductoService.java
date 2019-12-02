@@ -4,7 +4,9 @@ import com.heystyles.common.service.Service;
 import com.heystyles.producto.core.domain.Marca;
 import com.heystyles.producto.core.domain.Producto;
 import com.heystyles.producto.core.domain.ProductoExtended;
+import com.heystyles.producto.core.dto.ProductoExtendedListResponse;
 import com.heystyles.producto.core.dto.ProductoRequest;
+import com.heystyles.producto.core.filter.ProductoFilter;
 
 import java.util.List;
 
@@ -14,13 +16,13 @@ public interface ProductoService extends Service<Producto, Long> {
 
     void update(ProductoRequest request);
 
-    void activarProdcuto(Long productoId);
+    void activarProducto(Long productoId);
 
     Producto getProducto(Long productoId);
 
     ProductoExtended getProductoExtended(Long productoId);
 
-    List<ProductoExtended> findAllProductoExtended();
+    ProductoExtendedListResponse filter(ProductoFilter filter);
 
     List<Marca> findMarcaByProductoId(Long productoId);
 }

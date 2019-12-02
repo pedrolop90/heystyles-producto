@@ -3,11 +3,14 @@ package com.heystyles.producto.api.service.impl;
 import com.heystyles.common.exception.APIExceptions;
 import com.heystyles.common.service.impl.ServiceImpl;
 import com.heystyles.common.types.Estado;
+import com.heystyles.common.types.Page;
 import com.heystyles.producto.api.dao.UnidadMedidaDao;
 import com.heystyles.producto.api.entity.UnidadMedidaEntity;
 import com.heystyles.producto.api.message.MessageKeys;
 import com.heystyles.producto.api.service.UnidadMedidaService;
 import com.heystyles.producto.core.domain.UnidadMedida;
+import com.heystyles.producto.core.dto.UnidadMedidaListResponse;
+import com.heystyles.producto.core.filter.UnidadMedidaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.repository.CrudRepository;
@@ -54,5 +57,15 @@ public class UnidadMedidaServiceImpl
         UnidadMedida unidadMedida = getUnidadMedida(unidadMedidaId);
         unidadMedida.setEstado(Estado.ACTIVO);
         update(unidadMedida);
+    }
+
+    @Override
+    public UnidadMedidaListResponse filter(UnidadMedidaFilter filter) {
+        filter = Optional.of(filter).orElse(new UnidadMedidaFilter());
+        Page<UnidadMedidaEntity> page = unidadMedidaDao.getPage(filter);
+        return new UnidadMedidaListResponse(
+                page.getTotalElements(),
+                getConverterService().convertTo(page.getContent(), UnidadMedida.class)
+        );
     }
 }
