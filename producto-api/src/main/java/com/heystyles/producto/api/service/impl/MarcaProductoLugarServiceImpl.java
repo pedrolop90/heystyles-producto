@@ -8,6 +8,7 @@ import com.heystyles.producto.api.entity.MarcaProductoEntity;
 import com.heystyles.producto.api.entity.MarcaProductoLugarEntity;
 import com.heystyles.producto.api.service.MarcaProductoLugarService;
 import com.heystyles.producto.core.domain.Lugar;
+import com.heystyles.producto.core.dto.MarcaProductoLugarExtendedRequest;
 import com.heystyles.producto.core.dto.MarcaProductoLugarRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,26 @@ public class MarcaProductoLugarServiceImpl implements MarcaProductoLugarService 
 
         MarcaProductoEntity marcaProductoEntity = marcaProductoDao.findByProductoIdAndMarcaId(productoId, marcaId);
 
+        upsertGeneral(existing, lugares, marcaProductoEntity);
+    }
+
+    @Override
+    public void upsert(MarcaProductoLugarExtendedRequest request) {
+        Long marcaProductoId = request.getMarcaProductoId();
+        List<Long> lugares = request.getLugares();
+        if (lugares == null) {
+            return;
+        }
+
+        List<MarcaProductoLugarEntity> existing = marcaProductoLugarDao.findByMarcaProductoId(marcaProductoId);
+
+        MarcaProductoEntity marcaProductoEntity = marcaProductoDao.findOne(marcaProductoId);
+
+        upsertGeneral(existing, lugares, marcaProductoEntity);
+    }
+
+    private void upsertGeneral(List<MarcaProductoLugarEntity> existing,
+                               List<Long> lugares, MarcaProductoEntity marcaProductoEntity) {
         List<MarcaProductoLugarEntity> toDelete = new ArrayList<>();
         List<MarcaProductoLugarEntity> toSave = new ArrayList<>();
 
@@ -73,5 +94,9 @@ public class MarcaProductoLugarServiceImpl implements MarcaProductoLugarService 
         return converterService.convertTo(lugarEntities, Lugar.class);
     }
 
-
+    @Override
+    public List<Lugar> findLugaresByProductoIdAndMarcaId(Long marcaProductoId) {
+        List<LugarEntity> lugarEntities = marcaProductoLugarDao.findLugarByMarcaIdAndProductoId(marcaProductoId);
+        return converterService.convertTo(lugarEntities, Lugar.class);
+    }
 }

@@ -6,8 +6,10 @@ import java.util.List;
 
 public class MarcaProductoLugarRequest {
 
+    @NotNull
     private Long marcaId;
 
+    @NotNull
     private Long productoId;
 
     @NotNull

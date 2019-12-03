@@ -5,6 +5,7 @@ import com.heystyles.common.types.BaseResponse;
 import com.heystyles.producto.api.service.MarcaProductoLugarService;
 import com.heystyles.producto.core.domain.Lugar;
 import com.heystyles.producto.core.dto.LugarListResponse;
+import com.heystyles.producto.core.dto.MarcaProductoLugarExtendedRequest;
 import com.heystyles.producto.core.dto.MarcaProductoLugarRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,29 +36,53 @@ public class MarcaProductoLugarController {
     @Autowired
     private MarcaProductoLugarService marcaProductoLugarService;
 
-    @ApiOperation(value = "Permite Asignar o quitar de una Marca Producto, lugares")
+    @ApiOperation(value = "Permite Agregar o quitar Lugares a un Marca Producto, dado un MarcaProductoId.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "lugares Asignado."),
             @ApiResponse(code = 404, message = "lugares no Asignado.")
     })
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse> upsert(@NotNull @Valid @RequestBody MarcaProductoLugarRequest request) {
+    public ResponseEntity<BaseResponse> upsertByMarcaProductoLugarId(
+            @NotNull @Valid @RequestBody MarcaProductoLugarExtendedRequest request) {
         marcaProductoLugarService.upsert(request);
         return Responses.successEntity("Asginacion correcta");
     }
 
+    @ApiOperation(value = "Permite Agregar o quitar Lugares a un Marca Producto, dado un marcaId y productoId.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "lugares Asignado."),
+            @ApiResponse(code = 404, message = "lugares no Asignado.")
+    })
+    @PutMapping(value = "/marca-producto",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> upsert(
+            @NotNull @Valid @RequestBody MarcaProductoLugarRequest request) {
+        marcaProductoLugarService.upsert(request);
+        return Responses.successEntity("Asginacion correcta");
+    }
+
+    @ApiOperation(value = "Permite Listar todos los lugares, dado un marcaProductoId.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "lugares Encontrados."),
+            @ApiResponse(code = 404, message = "lugares no encontros.")
+    })
+    @GetMapping(value = "/{marcaProductoId}/lugares", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LugarListResponse> findLugarByProductoIdAndMarcaId(
+            @NotNull @PathVariable(name = "marcaProductoId") Long marcaProductoId) {
+        List<Lugar> lugares = marcaProductoLugarService.findLugaresByProductoIdAndMarcaId(marcaProductoId);
+        return Responses.responseEntity(new LugarListResponse(lugares));
+    }
 
     @ApiOperation(value = "Permite Listar todos los lugares, dado un productoId y marcaId.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "lugares Encontrados."),
             @ApiResponse(code = 404, message = "lugares no encontros.")
     })
-    @GetMapping(value = "/{productoId}/{marcaId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{productoId}/{marcaId}/lugares", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LugarListResponse> findLugarByProductoIdAndMarcaId(
             @NotNull @PathVariable(name = "productoId") Long productoId,
             @NotNull @PathVariable(name = "marcaId") Long marcaId) {
         List<Lugar> lugares = marcaProductoLugarService.findLugaresByProductoIdAndMarcaId(productoId, marcaId);
         return Responses.responseEntity(new LugarListResponse(lugares));
     }
-
 }

@@ -46,4 +46,15 @@ public class MarcaProductoLugarDaoImpl implements MarcaProductoLugarCustomDao {
         criteria.setProjection(Projections.property(MarcaProductoLugarEntity.Attributes.LUGAR));
         return criteria.list();
     }
+
+    @Override
+    public List<LugarEntity> findLugarByMarcaIdAndProductoId(Long marcaProductoId) {
+        Session session = entityManager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(MarcaProductoLugarEntity.class);
+        criteria.createAlias(MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO,
+                MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO);
+        criteria.add(Restrictions.eq(MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO_ID, marcaProductoId));
+        criteria.setProjection(Projections.property(MarcaProductoLugarEntity.Attributes.LUGAR));
+        return criteria.list();
+    }
 }

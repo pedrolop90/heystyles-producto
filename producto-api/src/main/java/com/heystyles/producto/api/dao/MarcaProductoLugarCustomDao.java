@@ -10,4 +10,5 @@ public interface MarcaProductoLugarCustomDao {
 
     List<LugarEntity> findLugarByMarcaIdAndProductoId(Long marcaId, Long productoId);
 
+    List<LugarEntity> findLugarByMarcaIdAndProductoId(Long marcaProductoId);
 }
