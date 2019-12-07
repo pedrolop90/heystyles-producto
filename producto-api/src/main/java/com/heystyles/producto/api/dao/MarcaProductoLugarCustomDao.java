@@ -1,7 +1,9 @@
 package com.heystyles.producto.api.dao;
 
 import com.heystyles.producto.api.entity.LugarEntity;
+import com.heystyles.producto.api.entity.MarcaProductoEntity;
 import com.heystyles.producto.api.entity.MarcaProductoLugarEntity;
+
 import java.util.List;
 
 public interface MarcaProductoLugarCustomDao {
@@ -11,4 +13,6 @@ public interface MarcaProductoLugarCustomDao {
     List<LugarEntity> findLugarByMarcaIdAndProductoId(Long marcaId, Long productoId);
 
     List<LugarEntity> findLugarByMarcaIdAndProductoId(Long marcaProductoId);
+
+    List<MarcaProductoEntity> findMarcaProductoByLugarId(Long lugarId);
 }

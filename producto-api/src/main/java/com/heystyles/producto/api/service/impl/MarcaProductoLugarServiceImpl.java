@@ -8,6 +8,8 @@ import com.heystyles.producto.api.entity.MarcaProductoEntity;
 import com.heystyles.producto.api.entity.MarcaProductoLugarEntity;
 import com.heystyles.producto.api.service.MarcaProductoLugarService;
 import com.heystyles.producto.core.domain.Lugar;
+import com.heystyles.producto.core.dto.LugarMarcaProductoRequest;
+import com.heystyles.producto.core.dto.MarcaProductoDto;
 import com.heystyles.producto.core.dto.MarcaProductoLugarExtendedRequest;
 import com.heystyles.producto.core.dto.MarcaProductoLugarRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,41 @@ public class MarcaProductoLugarServiceImpl implements MarcaProductoLugarService 
         upsertGeneral(existing, lugares, marcaProductoEntity);
     }
 
+    @Override
+    public void upsertMarcaProductoByLugar(LugarMarcaProductoRequest request) {
+        Long lugarId = request.getLugarId();
+        List<Long> marcaProductosIds = request.getMarcaProductosIds();
+        if (marcaProductosIds == null) {
+            return;
+        }
+
+        List<MarcaProductoLugarEntity> existing = marcaProductoLugarDao.findByLugarId(lugarId);
+
+        List<MarcaProductoLugarEntity> toDelete = new ArrayList<>();
+        List<MarcaProductoLugarEntity> toSave = new ArrayList<>();
+
+        Set<Long> oldMarcasIds = existing
+                .stream()
+                .map(e -> e.getLugar().getId())
+                .collect(Collectors.toSet());
+
+        existing.stream()
+                .filter(p -> !marcaProductosIds.contains(p.getLugar().getId()))
+                .forEach(p -> toDelete.add(p));
+
+        marcaProductosIds.stream()
+                .filter(l -> !oldMarcasIds.contains(l))
+                .forEach(l -> {
+                    MarcaProductoLugarEntity entity = new MarcaProductoLugarEntity();
+                    entity.setMarcaProducto(new MarcaProductoEntity(l));
+                    entity.setLugar(new LugarEntity(lugarId));
+                    toSave.add(entity);
+                });
+
+        marcaProductoLugarDao.delete(toDelete);
+        marcaProductoLugarDao.save(toSave);
+    }
+
     private void upsertGeneral(List<MarcaProductoLugarEntity> existing,
                                List<Long> lugares, MarcaProductoEntity marcaProductoEntity) {
         List<MarcaProductoLugarEntity> toDelete = new ArrayList<>();
@@ -98,5 +135,11 @@ public class MarcaProductoLugarServiceImpl implements MarcaProductoLugarService 
     public List<Lugar> findLugaresByProductoIdAndMarcaId(Long marcaProductoId) {
         List<LugarEntity> lugarEntities = marcaProductoLugarDao.findLugarByMarcaIdAndProductoId(marcaProductoId);
         return converterService.convertTo(lugarEntities, Lugar.class);
+    }
+
+    @Override
+    public List<MarcaProductoDto> findMarcaProductoByLugar(Long lugarId) {
+        List<MarcaProductoEntity> marcaProductoEntities = marcaProductoLugarDao.findMarcaProductoByLugarId(lugarId);
+        return converterService.convertTo(marcaProductoEntities, MarcaProductoDto.class);
     }
 }

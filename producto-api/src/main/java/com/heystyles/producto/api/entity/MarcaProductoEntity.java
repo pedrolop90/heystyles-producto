@@ -73,6 +73,14 @@ public class MarcaProductoEntity extends AuditableWithAuthorEntity<Long> impleme
     @Column(name = "updated_by")
     private String updatedBy;
 
+    public MarcaProductoEntity() {
+
+    }
+
+    public MarcaProductoEntity(Long id) {
+        this.id = id;
+    }
+
     @Override
     public Long getId() {
         return id;

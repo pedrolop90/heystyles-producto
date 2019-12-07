@@ -2,7 +2,7 @@ package com.heystyles.producto.cliente.impl;
 
 import com.heystyles.producto.cliente.MarcaProductoClient;
 import com.heystyles.producto.core.dto.MarcaProductoDto;
-import com.heystyles.producto.core.dto.MarcaProductoListResponse;
+import com.heystyles.producto.core.dto.MarcaProductoDtoListResponse;
 import com.heystyles.producto.core.dto.MarcaProductoResponse;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,7 +32,7 @@ public class MarcaProductoClientImpl implements MarcaProductoClient {
         UriComponentsBuilder urlBuilder = getUriClase();
         List<MarcaProductoDto> listResponse = client.getForEntity(
                 urlBuilder.toUriString(),
-                MarcaProductoListResponse.class).getBody().getData();
+                MarcaProductoDtoListResponse.class).getBody().getData();
         return Optional.ofNullable(listResponse).orElse(new ArrayList<>());
     }
 
@@ -51,7 +51,7 @@ public class MarcaProductoClientImpl implements MarcaProductoClient {
         if (marcaProductoId != null && !marcaProductoId.isEmpty()) {
             urlBuilder.queryParam("marcaProductosIds", marcaProductoId.toArray());
         }
-        return client.getForEntity(urlBuilder.toUriString(), MarcaProductoListResponse.class).getBody().getData();
+        return client.getForEntity(urlBuilder.toUriString(), MarcaProductoDtoListResponse.class).getBody().getData();
     }
 
 

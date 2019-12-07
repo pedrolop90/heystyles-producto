@@ -2,6 +2,7 @@ package com.heystyles.producto.api.dao.impl;
 
 import com.heystyles.producto.api.dao.MarcaProductoLugarCustomDao;
 import com.heystyles.producto.api.entity.LugarEntity;
+import com.heystyles.producto.api.entity.MarcaProductoEntity;
 import com.heystyles.producto.api.entity.MarcaProductoLugarEntity;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -55,6 +56,15 @@ public class MarcaProductoLugarDaoImpl implements MarcaProductoLugarCustomDao {
                 MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO);
         criteria.add(Restrictions.eq(MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO_ID, marcaProductoId));
         criteria.setProjection(Projections.property(MarcaProductoLugarEntity.Attributes.LUGAR));
+        return criteria.list();
+    }
+
+    @Override
+    public List<MarcaProductoEntity> findMarcaProductoByLugarId(Long lugarId) {
+        Session session = entityManager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(MarcaProductoLugarEntity.class);
+        criteria.add(Restrictions.eq(MarcaProductoLugarEntity.Attributes.LUGAR_ID, lugarId));
+        criteria.setProjection(Projections.property(MarcaProductoLugarEntity.Attributes.MARCA_PRODUCTO));
         return criteria.list();
     }
 }

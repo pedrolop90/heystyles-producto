@@ -3,7 +3,7 @@ package com.heystyles.producto.api.controller;
 import com.heystyles.common.response.Responses;
 import com.heystyles.producto.api.service.MarcaProductoService;
 import com.heystyles.producto.core.dto.MarcaProductoDto;
-import com.heystyles.producto.core.dto.MarcaProductoListResponse;
+import com.heystyles.producto.core.dto.MarcaProductoDtoListResponse;
 import com.heystyles.producto.core.dto.MarcaProductoResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,9 +37,9 @@ public class MarcaProductoController {
             @ApiResponse(code = 404, message = "Marcas Productos no encontradas.")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MarcaProductoListResponse> getMarcasProductos() {
+    public ResponseEntity<MarcaProductoDtoListResponse> getMarcasProductos() {
         List<MarcaProductoDto> marcas = marcaProductoService.getMarcaProductos();
-        return Responses.responseEntity(new MarcaProductoListResponse(marcas));
+        return Responses.responseEntity(new MarcaProductoDtoListResponse(marcas));
     }
 
     @ApiOperation(value = "Permite Obtener una Marca Producto dado un id de la base de datos")
@@ -60,9 +60,9 @@ public class MarcaProductoController {
             @ApiResponse(code = 404, message = "Marca Producto no encontrada.")
     })
     @GetMapping(value = "/batch/marca-producto", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MarcaProductoListResponse> getMarcaProductosById(
+    public ResponseEntity<MarcaProductoDtoListResponse> getMarcaProductosById(
             @NotNull @RequestParam(name = "marcaProductosIds") List<Long> marcaProductosIds) {
         List<MarcaProductoDto> marcaProductosDto = marcaProductoService.getMarcaProductosById(marcaProductosIds);
-        return Responses.responseEntity(new MarcaProductoListResponse(marcaProductosDto));
+        return Responses.responseEntity(new MarcaProductoDtoListResponse(marcaProductosDto));
     }
 }
