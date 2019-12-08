@@ -78,11 +78,11 @@ public class MarcaProductoLugarServiceImpl implements MarcaProductoLugarService 
 
         Set<Long> oldMarcasIds = existing
                 .stream()
-                .map(e -> e.getLugar().getId())
+                .map(e -> e.getMarcaProducto().getId())
                 .collect(Collectors.toSet());
 
         existing.stream()
-                .filter(p -> !marcaProductosIds.contains(p.getLugar().getId()))
+                .filter(p -> !marcaProductosIds.contains(p.getMarcaProducto().getId()))
                 .forEach(p -> toDelete.add(p));
 
         marcaProductosIds.stream()
